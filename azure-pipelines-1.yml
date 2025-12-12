@@ -12,7 +12,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        echo "Dispatching workflow: manual.yml on branch main"
+        echo "Dispatching workflow: Suite.yml on branch main"
 
         RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
           "https://github.com/AbdullahB2002/Smoke/actions/workflows/Suite.yml/dispatches" \
