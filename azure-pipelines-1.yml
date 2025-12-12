@@ -16,7 +16,7 @@ steps:
 
         RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
           "https://github.com/AbdullahB2002/Smoke/actions/workflows/Suite.yml/dispatches" \
-          -H "Authorization: token $(GITHUB_PAT)" \
+          -H "Authorization: token $(Suite)" \
           -H "Accept: application/vnd.github.v3+json" \
           -H "Content-Type: application/json" \
           -d '{
