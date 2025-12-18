@@ -1,21 +1,22 @@
-trigger: none
+trigger: none  # Manual trigger only (no automatic runs)
 
 pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  - group: sedstart-secrets  # Contains your GITHUB_PAT
+  - group: sedstart-secrets  # Reuse your existing variable group that contains GITHUB_PAT
+  # Your GITHUB_PAT (classic token with 'repo' scope) works for both repos
 
 steps:
   - task: Bash@3
-    displayName: 'Dispatch Sedstart Prod Workflow on GitHub'
+    displayName: 'Dispatch Suite.yml Workflow in Smoke Repository'
     inputs:
       targetType: 'inline'
       script: |
-        echo "Dispatching workflow: Suite.yml on branch main"
+        echo "Dispatching workflow: Suite.yml on branch main in AbdullahB2002/Smoke"
 
         RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
-          "https://github.com/AbdullahB2002/Smoke/blob/main/.github/workflows/Suite.yml" \
+          "https://api.github.com/repos/AbdullahB2002/Smoke/actions/workflows/Suite.yml/dispatches" \
           -H "Authorization: token $(GITHUB_PAT)" \
           -H "Accept: application/vnd.github.v3+json" \
           -H "Content-Type: application/json" \
@@ -30,14 +31,17 @@ steps:
         echo "$BODY"
 
         if [ "$HTTP_CODE" -eq 204 ]; then
-          echo "✅ Success! Sedstart Prod workflow (Suite.yml) dispatched successfully!"
-          echo "Check your GitHub Actions run here:"
-          echo "https://github.com/AbdullahB2002/Smoke/actions"
+          echo "✅ Success! Suite.yml workflow dispatched successfully!"
+          echo "View the workflow run here:"
+          echo "https://github.com/AbdullahB2002/Smoke/actions/workflows/Suite.yml"
         else
-          echo "❌ Dispatch failed (HTTP $HTTP_CODE)"
-          echo "Double-check:"
-          echo "   - GITHUB_PAT is a classic token with 'repo' scope"
-          echo "   - File is exactly 'Suite.yml' on 'main' branch"
+          echo "❌ Dispatch failed with HTTP $HTTP_CODE"
+          echo "Common fixes:"
+          echo "   • Workflow file name is exactly 'QA.yml' (case-sensitive: capital S)"
+          echo "   • File exists on the 'main' branch"
+          echo "   • GITHUB_PAT is a classic token with 'repo' scope"
+          echo "   • Suite.yml contains 'on: workflow_dispatch:'"
+          echo "   • You have write access to the Smoke repository"
           exit 1
         fi
     env:
