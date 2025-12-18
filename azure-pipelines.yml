@@ -12,10 +12,10 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        echo "Dispatching workflow: manual.yml on branch main"
+        echo "Dispatching workflow: Suite.yml on branch main"
 
         RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
-          "https://api.github.com/repos/AbdullahB2002/sedstart-github/actions/workflows/manual.yml/dispatches" \
+          "https://github.com/AbdullahB2002/Smoke/blob/main/.github/workflows/Suite.yml/dispatches" \
           -H "Authorization: token $(GITHUB_PAT)" \
           -H "Accept: application/vnd.github.v3+json" \
           -H "Content-Type: application/json" \
@@ -30,9 +30,9 @@ steps:
         echo "$BODY"
 
         if [ "$HTTP_CODE" -eq 204 ]; then
-          echo "✅ Success! Sedstart Prod workflow (manual.yml) dispatched successfully!"
+          echo "✅ Success! Sedstart Prod workflow (Suite.yml) dispatched successfully!"
           echo "Check your GitHub Actions run here:"
-          echo "https://github.com/AbdullahB2002/sedstart-github/actions"
+          echo "https://github.com/AbdullahB2002/Smoke/actions"
         else
           echo "❌ Dispatch failed (HTTP $HTTP_CODE)"
           echo "Double-check:"
