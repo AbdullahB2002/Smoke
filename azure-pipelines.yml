@@ -15,7 +15,7 @@ steps:
         echo "Dispatching workflow: Suite.yml on branch main"
 
         RESPONSE=$(curl -s -w "\n%{http_code}" -X POST \
-          "https://github.com/AbdullahB2002/Smoke/main/.github/workflows/Suite.yml/dispatches" \
+          "https://github.com/AbdullahB2002/Smoke/blob/main/.github/workflows/Suite.yml" \
           -H "Authorization: token $(GITHUB_PAT)" \
           -H "Accept: application/vnd.github.v3+json" \
           -H "Content-Type: application/json" \
