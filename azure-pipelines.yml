@@ -30,7 +30,7 @@ steps:
         echo "##[section]GitHub Dispatch Response (HTTP $HTTP_CODE):"
         echo "$BODY"
 
-        if [ "$HTTP_CODE" -eq 204 ]; then
+        if [ "$HTTP_CODE" -eq 200 ]; then
           echo "✅ Success! Suite.yml workflow dispatched successfully!"
           echo "View the workflow run here:"
           echo "https://github.com/AbdullahB2002/Smoke/actions/workflows/Suite.yml"
