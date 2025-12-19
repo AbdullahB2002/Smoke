@@ -37,7 +37,7 @@ steps:
         else
           echo "❌ Dispatch failed with HTTP $HTTP_CODE"
           echo "Common fixes:"
-          echo "   • Workflow file name is exactly 'QA.yml' (case-sensitive: capital S)"
+          echo "   • Workflow file name is exactly 'Suite.yml' (case-sensitive: capital S)"
           echo "   • File exists on the 'main' branch"
           echo "   • GITHUB_PAT is a classic token with 'repo' scope"
           echo "   • Suite.yml contains 'on: workflow_dispatch:'"
